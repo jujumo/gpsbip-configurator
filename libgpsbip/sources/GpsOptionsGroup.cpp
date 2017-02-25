@@ -23,24 +23,7 @@ GpsOptionsGroup::~GpsOptionsGroup()
     // Can't be defaulted due to QScopedPointer
 }
 
-bool GpsOptionsGroup::isGpsEnabled() const          { return get<BoolOption>(m_impl->gpsEnabled); }
-void GpsOptionsGroup::setGpsEnabled(bool enabled)
-{
-    if (enabled == isGpsEnabled())
-        return;
-
-    get<BoolOption>(m_impl->gpsEnabled) = enabled;
-    emit gpsEnabledChanged();
-}
-
-bool GpsOptionsGroup::isTakeOffDetectionEnabled() const   { return get<BoolOption>(m_impl->takeOffDetection); }
-void GpsOptionsGroup::setTakeOffDetection(bool enabled)
-{
-    if (enabled == isTakeOffDetectionEnabled())
-        return;
-
-    get<BoolOption>(m_impl->takeOffDetection) = enabled;
-    emit takeOffDetectionChanged();
-}
+BoolOption* GpsOptionsGroup::gpsEnabled()       { return &get<BoolOption>(m_impl->gpsEnabled); }
+BoolOption* GpsOptionsGroup::takeOffDetection() { return &get<BoolOption>(m_impl->takeOffDetection); }
 
 }

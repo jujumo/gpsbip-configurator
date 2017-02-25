@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include <libgpsbip/GpsOptionsGroup.h>
+#include "gpsbip_context.h"
 
 #include <QTimer>
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     gpsbip::Context context;
 
     QTimer t;
-    t.connect(&t, &QTimer::timeout, [&] () { context.gps().setGpsEnabled(true); });
+    t.connect(&t, &QTimer::timeout, [&] () { *(context.gps()->gpsEnabled()) = true; });
     t.start(3000);
 
     QQmlApplicationEngine engine;

@@ -10,7 +10,7 @@ namespace gpsbip {
     {
         Q_OBJECT
 
-        Q_PROPERTY(GpsOptionsGroup gps READ gps CONSTANT)
+        Q_PROPERTY(GpsOptionsGroup* gps READ gps CONSTANT)
 
     public:
         Context();
@@ -19,7 +19,7 @@ namespace gpsbip {
         Context& operator=(const Context&) = delete;
         Context& operator=(Context&&) = delete;
 
-        GpsOptionsGroup& gps();
+        GpsOptionsGroup* gps();
 
     private:
         GpsOptionsGroup m_gpsProps;

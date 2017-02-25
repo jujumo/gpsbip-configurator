@@ -10,8 +10,8 @@ namespace gpsbip {
     {
         Q_OBJECT
 
-        Q_PROPERTY(bool gpsEnabled READ isGpsEnabled WRITE setGpsEnabled NOTIFY gpsEnabledChanged)
-        Q_PROPERTY(bool takeOffDetection READ isTakeOffDetectionEnabled WRITE setTakeOffDetection NOTIFY takeOffDetectionChanged)
+        Q_PROPERTY(BoolOption* gpsEnabled READ gpsEnabled CONSTANT)
+        Q_PROPERTY(BoolOption* takeOffDetection READ takeOffDetection CONSTANT)
 
     public:
         GpsOptionsGroup();
@@ -20,15 +20,8 @@ namespace gpsbip {
 
         GpsOptionsGroup& operator=(const GpsOptionsGroup&) = delete;
 
-        bool isGpsEnabled() const;
-        void setGpsEnabled(bool enabled);
-
-        bool isTakeOffDetectionEnabled() const;
-        void setTakeOffDetection(bool enabled);
-
-    signals:
-        void gpsEnabledChanged();
-        void takeOffDetectionChanged();
+        BoolOption* gpsEnabled();
+        BoolOption* takeOffDetection();
 
     private:
         QScopedPointer<GpsOptionsGroupImpl> m_impl;

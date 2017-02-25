@@ -14,16 +14,16 @@ ApplicationWindow {
         CheckBox {
             id: cbGpsEnabled
             text: "GPS enabled"
-            checked: gps.gpsEnabled
+            checked: gps.gpsEnabled.value
         }
-        Binding { target: gps; property: "gpsEnabled"; value: cbGpsEnabled.checked }
+        Binding { target: gps.gpsEnabled; property: "value"; value: cbGpsEnabled.checked }
 
         CheckBox {
             id: cbToDetection
             text: "Takeoff detection"
-            checked: gps.takeOffDetection
+            checked: gps.takeOffDetection.value
         }
-        Binding { target: gps; property: "takeOffDetection"; value: cbToDetection.checked }
+        Binding { target: gps.takeOffDetection; property: "value"; value: cbToDetection.checked }
 
         Button {
             text: "Log values"

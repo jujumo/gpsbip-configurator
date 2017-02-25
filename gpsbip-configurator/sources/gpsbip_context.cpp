@@ -6,9 +6,9 @@ Context::Context()
 {
 }
 
-GpsOptionsGroup& Context::gps()
+GpsOptionsGroup* Context::gps()
 {
-    return m_gpsProps;
+    return &m_gpsProps;
 }
 
 }

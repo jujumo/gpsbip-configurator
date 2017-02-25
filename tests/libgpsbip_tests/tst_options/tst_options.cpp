@@ -37,19 +37,38 @@ void Tst_options::testOptionBaseEnabledProperty()
 
 void Tst_options::testStringOption()
 {
+    bool valueChanged = false;
     gpsbip::StringOption opt;
+    connect(&opt, &gpsbip::StringOption::valueChanged, [&valueChanged] () { valueChanged = true; });
     opt = "test";
 
     QCOMPARE(static_cast<QString>(opt), QString("test"));
+    QCOMPARE(valueChanged, true);
+
+    valueChanged = false;
+    opt = "test";
+    QCOMPARE(valueChanged, false);
 }
 
 void Tst_options::testBoolOption()
 {
+    bool valueChanged = false;
     gpsbip::BoolOption opt;
+    connect(&opt, &gpsbip::BoolOption::valueChanged, [&valueChanged] () { valueChanged = true; });
+
     opt = true;
     QCOMPARE(static_cast<bool>(opt), true);
+    QCOMPARE(valueChanged, true);
+
+    valueChanged = false;
     opt = false;
     QCOMPARE(static_cast<bool>(opt), false);
+    QCOMPARE(valueChanged, true);
+
+    valueChanged = false;
+    opt = false;
+    QCOMPARE(static_cast<bool>(opt), false);
+    QCOMPARE(valueChanged, false);
 }
 
 QTEST_APPLESS_MAIN(Tst_options)

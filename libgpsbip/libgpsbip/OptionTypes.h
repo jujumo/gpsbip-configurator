@@ -8,16 +8,27 @@ namespace gpsbip {
     {
         Q_OBJECT
 
+        Q_PROPERTY(QString value MEMBER m_value NOTIFY valueChanged)
+
     public:
         StringOption() = default;
         StringOption(const StringOption&) = default;
         StringOption& operator=(const StringOption&) = default;
         virtual ~StringOption() = default;
 
-        operator QString&() { return m_value; }
+        operator QString() { return m_value; }
 
         template <typename T>
-        StringOption& operator=(T value) { m_value = QString(value); return *this; }
+        StringOption& operator=(T value)
+        {
+            if (m_value == QString(value)) return *this;
+            m_value = QString(value);
+            emit valueChanged();
+            return *this;
+        }
+
+    signals:
+        void valueChanged();
 
     private:
         QString m_value;
@@ -27,6 +38,8 @@ namespace gpsbip {
     {
         Q_OBJECT
 
+        Q_PROPERTY(bool value MEMBER m_value NOTIFY valueChanged)
+
     public:
         BoolOption() = default;
         BoolOption(const BoolOption&) = default;
@@ -34,9 +47,14 @@ namespace gpsbip {
         virtual ~BoolOption() = default;
 
         operator bool() const { return m_value; }
-        operator bool&() { return m_value; }
 
-        BoolOption& operator=(bool value) { m_value = value; return *this; }
+        BoolOption& operator=(bool value)
+        {
+            if (m_value == value) return *this;
+            m_value = value;
+            emit valueChanged();
+            return *this;
+        }
 
         // Disable any implicit conversion to bool by deleting cast operator/assignment for anything else than bool
         template <typename T>
@@ -45,6 +63,9 @@ namespace gpsbip {
         operator T&() = delete;
         template <typename T>
         BoolOption& operator=(T value) = delete;
+
+    signals:
+        void valueChanged();
 
     private:
         bool m_value;
