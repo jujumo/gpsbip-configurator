@@ -14,6 +14,7 @@ public:
 private Q_SLOTS:
     // OptionBase tests
     void testOptionBaseEnabledProperty();
+    void testOptionBaseEnabler();
 
     // Typed options tests
     void testStringOption();
@@ -33,6 +34,22 @@ void Tst_options::testOptionBaseEnabledProperty()
 
     opt.setEnabled(false);
     QCOMPARE(opt.property("enabled").toBool(), false);
+}
+
+void Tst_options::testOptionBaseEnabler()
+{
+    gpsbip::BoolOption root;
+
+    gpsbip::BoolOption dependant;
+    dependant.dependsOn(root);
+
+    QCOMPARE(dependant.isEnabled(), false);
+
+    root = true;
+    QCOMPARE(dependant.isEnabled(), true);
+
+    root = false;
+    QCOMPARE(dependant.isEnabled(), false);
 }
 
 void Tst_options::testStringOption()
