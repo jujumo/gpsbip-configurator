@@ -30,6 +30,12 @@ namespace gpsbip {
          */
         int addOption(OptionBase *opt);
 
+        template <typename OptionT, typename ...Args>
+        int addOption(const Args &...args)
+        {
+            return addOption(new OptionT(args...));
+        }
+
         template <typename OptionType>
         OptionType& get(int index)
         {
