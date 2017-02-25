@@ -21,6 +21,10 @@ public:
     gpsbip::BoolOption* getOption() { return &get<gpsbip::BoolOption>(opt); }
     gpsbip::StringOption* getStrOption() { return &get<gpsbip::StringOption>(strOpt); }
 
+    void trigger_getInvalidType() { get<gpsbip::BoolOption>(strOpt); }
+    void trigger_indexTooBig() { get<gpsbip::BoolOption>(42); }
+    void trigger_indexTooLow() { get<gpsbip::BoolOption>(-1); }
+
 private:
     int root, opt, strOpt;
 };
@@ -36,6 +40,9 @@ private Q_SLOTS:
     // Base group validation
     void testOptionGroupMechanic();
     void testOptionGroupMechanic_optionParenting();
+    void testOptionGroupBaseException_invalidGetType();
+    void testOptionGroupBaseException_getIndexTooBig();
+    void testOptionGroupBaseException_getIndexTooLow();
 
     // Real groups validation
     void validateGpsOptionsGroup();
@@ -85,6 +92,36 @@ void Tst_optionsGroups::testOptionGroupMechanic_optionParenting()
     catch (std::exception &e) {
         QFAIL(e.what());
     }
+}
+
+void Tst_optionsGroups::testOptionGroupBaseException_invalidGetType()
+{
+#ifdef QT_NO_DEBUG
+    MockGroup g;
+    QVERIFY_EXCEPTION_THROWN(g.trigger_getInvalidType(), std::invalid_argument);
+#else
+    QSKIP("This test can only run in release config. Assert is triggered instead of exception in debug.");
+#endif
+}
+
+void Tst_optionsGroups::testOptionGroupBaseException_getIndexTooBig()
+{
+#ifdef QT_NO_DEBUG
+    MockGroup g;
+    QVERIFY_EXCEPTION_THROWN(g.trigger_indexTooBig(), std::out_of_range);
+#else
+    QSKIP("This test can only run in release config. Assert is triggered instead of exception in debug.");
+#endif
+}
+
+void Tst_optionsGroups::testOptionGroupBaseException_getIndexTooLow()
+{
+#ifdef QT_NO_DEBUG
+    MockGroup g;
+    QVERIFY_EXCEPTION_THROWN(g.trigger_indexTooLow(), std::out_of_range);
+#else
+    QSKIP("This test can only run in release config. Assert is triggered instead of exception in debug.");
+#endif
 }
 
 void Tst_optionsGroups::validateGpsOptionsGroup()
