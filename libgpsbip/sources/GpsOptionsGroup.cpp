@@ -24,9 +24,23 @@ GpsOptionsGroup::~GpsOptionsGroup()
 }
 
 bool GpsOptionsGroup::isGpsEnabled() const          { return get<BoolOption>(m_impl->gpsEnabled); }
-void GpsOptionsGroup::setGpsEnabled(bool enabled)   { get<BoolOption>(m_impl->gpsEnabled) = enabled; emit gpsEnabledChanged(); }
+void GpsOptionsGroup::setGpsEnabled(bool enabled)
+{
+    if (enabled == isGpsEnabled())
+        return;
+
+    get<BoolOption>(m_impl->gpsEnabled) = enabled;
+    emit gpsEnabledChanged();
+}
 
 bool GpsOptionsGroup::isTakeOffDetectionEnabled() const   { return get<BoolOption>(m_impl->takeOffDetection); }
-void GpsOptionsGroup::setTakeOffDetection(bool enabled)   { get<BoolOption>(m_impl->takeOffDetection) = enabled; emit takeOffDetectionChanged(); }
+void GpsOptionsGroup::setTakeOffDetection(bool enabled)
+{
+    if (enabled == isTakeOffDetectionEnabled())
+        return;
+
+    get<BoolOption>(m_impl->takeOffDetection) = enabled;
+    emit takeOffDetectionChanged();
+}
 
 }
