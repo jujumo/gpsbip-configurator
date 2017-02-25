@@ -8,30 +8,26 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
-    SwipeView {
-        id: swipeView
-        anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+    Column {
+        spacing: 35
 
-        Page1 {
+        CheckBox {
+            id: cbGpsEnabled
+            text: "GPS enabled"
         }
+        Binding { target: gps; property: "gpsEnabled"; value: cbGpsEnabled.checked }
 
-        Page {
-            Label {
-                text: qsTr("Second page")
-                anchors.centerIn: parent
+        CheckBox {
+            id: cbToDetection
+            text: "Takeoff detection"
+        }
+        Binding { target: gps; property: "takeOffDetection"; value: cbToDetection.checked }
+
+        Button {
+            text: "Log values"
+            onClicked:  {
+                console.log(JSON.stringify(gps));
             }
-        }
-    }
-
-    footer: TabBar {
-        id: tabBar
-        currentIndex: swipeView.currentIndex
-        TabButton {
-            text: qsTr("First")
-        }
-        TabButton {
-            text: qsTr("Second")
         }
     }
 }
