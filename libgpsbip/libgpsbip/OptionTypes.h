@@ -60,8 +60,6 @@ namespace gpsbip {
         template <typename T>
         operator T() = delete;
         template <typename T>
-        operator T&() = delete;
-        template <typename T>
         BoolOption& operator=(T value) = delete;
 
     signals:
