@@ -1,9 +1,11 @@
-INCLUDEPATH += $$absolute_path(./libgpsbip)
-LIBS += -L$${DESTDIR}
+INCLUDEPATH *= $$absolute_path(.)
+LIBS *= -L$${DESTDIR}
 
 CONFIG(debug, debug|release) {
-    LIBS += -llibgpsbipd
+    LIBS *= -llibgpsbipd
+     PRE_TARGETDEPS *= $${DESTDIR}/libgpsbipd.lib
 }
 CONFIG(release, release|debug) {
-    LIBS += -llibgpsbip
+    LIBS *= -llibgpsbip
+     PRE_TARGETDEPS *= $${DESTDIR}/libgpsbip.lib
 }
