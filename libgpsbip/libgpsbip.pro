@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES +=
 HEADERS += libgpsbip/OptionBase.h \
+           libgpsbip/OptionTypes.h \
 
 unix {
     target.path = /usr/lib
