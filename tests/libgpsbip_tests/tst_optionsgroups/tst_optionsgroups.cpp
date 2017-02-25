@@ -4,25 +4,24 @@
 #include <libgpsbip/OptionTypes.h>
 #include <libgpsbip/OptionsGroupBase.h>
 
-#include <QDebug>
 class MockGroup : public gpsbip::OptionsGroupBase
 {
     Q_OBJECT
-    Q_PROPERTY(int stubOption READ getStubOption WRITE setStubOption NOTIFY stubOptionChanged)
 
 public:
     MockGroup() {
-        opt = addOption(new gpsbip::BoolOption());
+        auto r = new gpsbip::BoolOption();
+        root = addOption(r);
+        opt = addOption<gpsbip::BoolOption>("label");
+        strOpt = addOption<gpsbip::StringOption>(*r, "label");
     }
 
-    bool getStubOption() { return get<gpsbip::BoolOption>(opt); }
-    void setStubOption(bool v) { get<gpsbip::BoolOption>(opt) = v; emit stubOptionChanged(); }
-
-signals:
-    void stubOptionChanged();
+    gpsbip::BoolOption* getRootOption() { return &get<gpsbip::BoolOption>(root); }
+    gpsbip::BoolOption* getOption() { return &get<gpsbip::BoolOption>(opt); }
+    gpsbip::StringOption* getStrOption() { return &get<gpsbip::StringOption>(strOpt); }
 
 private:
-    int opt;
+    int root, opt, strOpt;
 };
 
 class Tst_optionsGroups : public QObject
@@ -42,12 +41,14 @@ Tst_optionsGroups::Tst_optionsGroups()
 
 void Tst_optionsGroups::testOptionGroupMechanic()
 {
+    // Validates all 3 addOption variants
     MockGroup g;
-    g.setStubOption(true);
-    QCOMPARE(g.getStubOption(), true);
 
-    g.setProperty("stubOption", false);
-    QCOMPARE(g.property("stubOption").toBool(), false);
+    // Validates get<>
+    gpsbip::BoolOption *root = g.getRootOption();
+    QVERIFY(root != nullptr);
+    gpsbip::BoolOption *opt = g.getOption();
+    QVERIFY(opt != nullptr);
 }
 
 QTEST_APPLESS_MAIN(Tst_optionsGroups)
