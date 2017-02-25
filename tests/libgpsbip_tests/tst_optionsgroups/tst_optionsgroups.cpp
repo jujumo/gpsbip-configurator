@@ -41,14 +41,26 @@ Tst_optionsGroups::Tst_optionsGroups()
 
 void Tst_optionsGroups::testOptionGroupMechanic()
 {
-    // Validates all 3 addOption variants
-    MockGroup g;
+    try {
+        // Validates all 3 addOption variants (by definition, can't really assert that :/)
+        MockGroup g;
 
-    // Validates get<>
-    gpsbip::BoolOption *root = g.getRootOption();
-    QVERIFY(root != nullptr);
-    gpsbip::BoolOption *opt = g.getOption();
-    QVERIFY(opt != nullptr);
+        // Validates get<>
+        gpsbip::BoolOption *root = g.getRootOption();
+        QVERIFY(root != nullptr);
+        gpsbip::BoolOption *opt = g.getOption();
+        QVERIFY(opt != nullptr);
+        gpsbip::StringOption *str = g.getStrOption();
+        QVERIFY(str != nullptr);
+
+        // Confirm that the string option is dependant on the root one and that the expected addOption was used
+        QCOMPARE(str->isEnabled(), false);
+        *root = true;
+        QCOMPARE(str->isEnabled(), true);
+    }
+    catch (std::exception &e) {
+        QFAIL(e.what());
+    }
 }
 
 QTEST_APPLESS_MAIN(Tst_optionsGroups)
