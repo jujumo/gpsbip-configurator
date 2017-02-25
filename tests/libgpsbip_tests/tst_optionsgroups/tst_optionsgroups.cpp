@@ -33,6 +33,7 @@ public:
 
 private Q_SLOTS:
     void testOptionGroupMechanic();
+    void testOptionGroupMechanic_optionParenting();
 };
 
 Tst_optionsGroups::Tst_optionsGroups()
@@ -57,6 +58,24 @@ void Tst_optionsGroups::testOptionGroupMechanic()
         QCOMPARE(str->isEnabled(), false);
         *root = true;
         QCOMPARE(str->isEnabled(), true);
+    }
+    catch (std::exception &e) {
+        QFAIL(e.what());
+    }
+}
+
+void Tst_optionsGroups::testOptionGroupMechanic_optionParenting()
+{
+    try {
+        MockGroup g;
+
+        gpsbip::BoolOption *root = g.getRootOption();
+        gpsbip::BoolOption *opt = g.getOption();
+        gpsbip::StringOption *str = g.getStrOption();
+
+        QCOMPARE(root->parent(), &g);
+        QCOMPARE(opt->parent(), &g);
+        QCOMPARE(str->parent(), &g);
     }
     catch (std::exception &e) {
         QFAIL(e.what());
