@@ -11,14 +11,14 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
-    gpsbip::GpsOptionsGroup gpsGroup;
+    gpsbip::Context context;
 
     QTimer t;
-    t.connect(&t, &QTimer::timeout, [&] () { gpsGroup.setGpsEnabled(true); });
+    t.connect(&t, &QTimer::timeout, [&] () { context.gps().setGpsEnabled(true); });
     t.start(3000);
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("gps", &gpsGroup);
+    engine.rootContext()->setContextObject(&context);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();

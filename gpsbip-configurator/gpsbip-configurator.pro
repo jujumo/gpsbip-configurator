@@ -7,7 +7,10 @@ include(../libgpsbip/libgpsbip.pri)
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+HEADERS += sources/gpsbip_context.h
+
+SOURCES += sources/main.cpp \
+           sources/gpsbip_context.cpp
 
 RESOURCES += qml.qrc
 
