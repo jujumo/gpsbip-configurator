@@ -14,8 +14,8 @@ struct GpsOptionsGroupImpl
 GpsOptionsGroup::GpsOptionsGroup()
     : m_impl(new GpsOptionsGroupImpl)
 {
-    m_impl->gpsEnabled = addOption(new BoolOption());
-    m_impl->takeOffDetection = addOption(new BoolOption());
+    m_impl->gpsEnabled = addOption(new BoolOption("GPS enabled"));
+    m_impl->takeOffDetection = addOption(new BoolOption("Takeoff detection"));
 }
 
 GpsOptionsGroup::~GpsOptionsGroup()

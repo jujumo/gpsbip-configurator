@@ -11,7 +11,7 @@ namespace gpsbip {
         Q_PROPERTY(QString value MEMBER m_value NOTIFY valueChanged)
 
     public:
-        StringOption() = default;
+        StringOption(QString label = QString()) : OptionBase(label) {}
         StringOption(const StringOption&) = default;
         StringOption& operator=(const StringOption&) = default;
         virtual ~StringOption() = default;
@@ -41,7 +41,7 @@ namespace gpsbip {
         Q_PROPERTY(bool value MEMBER m_value NOTIFY valueChanged)
 
     public:
-        BoolOption() = default;
+        BoolOption(QString label = QString()) : OptionBase(label), m_value(false) {}
         BoolOption(const BoolOption&) = default;
         BoolOption& operator=(const BoolOption&) = default;
         virtual ~BoolOption() = default;
