@@ -58,18 +58,6 @@ namespace gpsbip {
             return *opt;
         }
 
-        template <typename OptionType>
-        const OptionType& get(int index) const
-        {
-            check_get(index);
-
-            auto opt = reinterpret_cast<OptionType*>(m_options.at(index));
-            Q_ASSERT(opt != nullptr);
-            if (opt == nullptr) throw std::invalid_argument("Requested option type was incorrect.");
-
-            return *opt;
-        }
-
     private:
         void check_get(int index) const
         {
