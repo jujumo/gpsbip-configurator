@@ -51,7 +51,7 @@ namespace gpsbip {
         {
             check_get(index);
 
-            auto opt = reinterpret_cast<OptionType*>(m_options.at(index));
+            auto opt = dynamic_cast<OptionType*>(m_options.at(index));
             Q_ASSERT(opt != nullptr);
             if (opt == nullptr) throw std::invalid_argument("Requested option type was incorrect.");
 
