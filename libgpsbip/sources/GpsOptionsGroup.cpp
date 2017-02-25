@@ -16,7 +16,7 @@ GpsOptionsGroup::GpsOptionsGroup()
 {
     BoolOption* const gpsRootOpt = new BoolOption("GPS enabled");
     m_impl->gpsEnabled = addOption(gpsRootOpt);
-    m_impl->takeOffDetection = addOption<BoolOption>("Takeoff detection");
+    m_impl->takeOffDetection = addOption<BoolOption>(*gpsRootOpt, "Takeoff detection");
 }
 
 GpsOptionsGroup::~GpsOptionsGroup()

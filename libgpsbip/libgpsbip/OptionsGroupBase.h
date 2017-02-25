@@ -30,6 +30,16 @@ namespace gpsbip {
          */
         int addOption(OptionBase *opt);
 
+        //! \overload
+        template <typename OptionT, typename ...Args>
+        int addOption(BoolOption &enabler, const Args &...args)
+        {
+            auto opt = new OptionT(args...);
+            opt->dependsOn(enabler);
+            return addOption(opt);
+        }
+
+        //! \overload
         template <typename OptionT, typename ...Args>
         int addOption(const Args &...args)
         {

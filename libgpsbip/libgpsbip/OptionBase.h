@@ -6,6 +6,8 @@
 
 namespace gpsbip {
 
+    class BoolOption;
+
     class OptionBase : public QObject
     {
         Q_OBJECT
@@ -18,10 +20,14 @@ namespace gpsbip {
         OptionBase& operator=(const OptionBase&) = delete;
         virtual ~OptionBase() = default;
 
+        void dependsOn(BoolOption &enabler);
+
         QString label() const { return m_label; }
 
         bool isEnabled() const  { return m_isEnabled; }
-        void setEnabled(bool e) { m_isEnabled = e; emit enabledChanged(); }
+
+    public slots:
+        void setEnabled(bool e);
 
     signals:
         void enabledChanged();

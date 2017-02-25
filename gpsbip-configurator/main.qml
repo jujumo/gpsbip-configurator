@@ -14,6 +14,7 @@ ApplicationWindow {
         CheckBox {
             id: cbGpsEnabled
             text: gps.gpsEnabled.label
+            enabled: gps.gpsEnabled.enabled
             checked: gps.gpsEnabled.value
         }
         Binding { target: gps.gpsEnabled; property: "value"; value: cbGpsEnabled.checked }
@@ -21,6 +22,7 @@ ApplicationWindow {
         CheckBox {
             id: cbToDetection
             text: gps.takeOffDetection.label
+            enabled: gps.takeOffDetection.enabled
             checked: gps.takeOffDetection.value
         }
         Binding { target: gps.takeOffDetection; property: "value"; value: cbToDetection.checked }
