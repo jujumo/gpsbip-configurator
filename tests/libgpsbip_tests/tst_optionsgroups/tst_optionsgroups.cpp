@@ -3,6 +3,7 @@
 
 #include <libgpsbip/OptionTypes.h>
 #include <libgpsbip/OptionsGroupBase.h>
+#include <libgpsbip/GpsOptionsGroup.h>
 
 class MockGroup : public gpsbip::OptionsGroupBase
 {
@@ -32,8 +33,12 @@ public:
     Tst_optionsGroups();
 
 private Q_SLOTS:
+    // Base group validation
     void testOptionGroupMechanic();
     void testOptionGroupMechanic_optionParenting();
+
+    // Real groups validation
+    void validateGpsOptionsGroup();
 };
 
 Tst_optionsGroups::Tst_optionsGroups()
@@ -76,6 +81,31 @@ void Tst_optionsGroups::testOptionGroupMechanic_optionParenting()
         QCOMPARE(root->parent(), &g);
         QCOMPARE(opt->parent(), &g);
         QCOMPARE(str->parent(), &g);
+    }
+    catch (std::exception &e) {
+        QFAIL(e.what());
+    }
+}
+
+void Tst_optionsGroups::validateGpsOptionsGroup()
+{
+    // Since we validated base mechanics previously, we will only validates that the
+    // properties are indeed available and the relationships between those is correct.
+
+    try {
+        gpsbip::GpsOptionsGroup gps;
+        gpsbip::BoolOption * const root         = qvariant_cast<gpsbip::BoolOption*>(gps.property("gpsEnabled"));
+        gpsbip::BoolOption * const toDetection  = qvariant_cast<gpsbip::BoolOption*>(gps.property("takeOffDetection"));
+
+        QVERIFY(root != nullptr);
+        QVERIFY(toDetection != nullptr);
+
+        // Enablement checking
+        QCOMPARE(toDetection->isEnabled(), false);
+
+        *root = true;
+
+        QCOMPARE(toDetection->isEnabled(), true);
     }
     catch (std::exception &e) {
         QFAIL(e.what());
