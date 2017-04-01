@@ -24,14 +24,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += sources/OptionsGroupBase.cpp \
-           sources/GpsOptionsGroup.cpp \
-           sources/OptionBase.cpp
+SOURCES += sources/OptionsGroupBase.cpp     \
+           sources/OptionBase.cpp           \
+           sources/IdentityOptionsGroup.cpp \
+           sources/GpsOptionsGroup.cpp      \
 
-HEADERS += libgpsbip/OptionBase.h \
-           libgpsbip/OptionTypes.h \
-           libgpsbip/OptionsGroupBase.h \
-           libgpsbip/GpsOptionsGroup.h
+
+HEADERS += libgpsbip/OptionBase.h           \
+           libgpsbip/OptionTypes.h          \
+           libgpsbip/OptionsGroupBase.h     \
+           libgpsbip/IdentityOptionsGroup.h \
+           libgpsbip/GpsOptionsGroup.h      \
 
 unix {
     target.path = /usr/lib

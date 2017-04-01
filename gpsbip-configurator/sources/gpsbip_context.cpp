@@ -6,6 +6,11 @@ Context::Context()
 {
 }
 
+IdentityOptionsGroup *Context::identity()
+{
+    return &m_idProps;
+}
+
 GpsOptionsGroup* Context::gps()
 {
     return &m_gpsProps;
