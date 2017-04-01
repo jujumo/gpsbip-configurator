@@ -4,6 +4,7 @@
 
 namespace gpsbip {
 
+    /// STRING ////////////////////////////
     class StringOption : public OptionBase
     {
         Q_OBJECT
@@ -34,6 +35,38 @@ namespace gpsbip {
         QString m_value;
     };
 
+    /// INTEGER ////////////////////////////
+    class IntegerOption : public OptionBase
+    {
+        Q_OBJECT
+
+        Q_PROPERTY(qint32 value MEMBER m_value NOTIFY valueChanged)
+
+    public:
+        IntegerOption(QString label = QString()) : OptionBase(label) {}
+        IntegerOption(const IntegerOption&) = default;
+        IntegerOption& operator=(const IntegerOption&) = default;
+        virtual ~IntegerOption() = default;
+
+        operator qint32() { return m_value; }
+
+        template <typename T>
+        IntegerOption& operator=(T value)
+        {
+            if (m_value == qint32(value)) return *this;
+            m_value = qint32(value);
+            emit valueChanged();
+            return *this;
+        }
+
+    signals:
+        void valueChanged();
+
+    private:
+        qint32 m_value;
+    };
+
+    /// BOOL ////////////////////////////
     class BoolOption : public OptionBase
     {
         Q_OBJECT

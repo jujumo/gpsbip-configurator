@@ -18,6 +18,7 @@ private Q_SLOTS:
 
     // Typed options tests
     void testStringOption();
+    void testIntegerOption();
     void testBoolOption();
 };
 
@@ -64,6 +65,21 @@ void Tst_options::testStringOption()
 
     valueChanged = false;
     opt = "test";
+    QCOMPARE(valueChanged, false);
+}
+
+void Tst_options::testIntegerOption()
+{
+    bool valueChanged = false;
+    gpsbip::IntegerOption opt;
+    connect(&opt, &gpsbip::IntegerOption::valueChanged, [&valueChanged] () { valueChanged = true; });
+    opt = 12;
+
+    QCOMPARE(static_cast<qint32>(opt), qint32(12));
+    QCOMPARE(valueChanged, true);
+
+    valueChanged = false;
+    opt = 12;
     QCOMPARE(valueChanged, false);
 }
 
