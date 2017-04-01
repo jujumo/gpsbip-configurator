@@ -44,38 +44,78 @@ ApplicationWindow {
         }
         Binding { target: identity.trigram; property: "value"; value: stringIdentityTrigram.text }
 
-        // IDENTITY::TRIGRAM
+        // IDENTITY::AIRCRAFT_TYPE
         ComboBox {
             id: stringIdentityAircraftType
             //text: identity.aircraftType.label
             enabled: identity.aircraftType.enabled
             model: ["paraglider", "paramotor", "hang glider", "bike", "hike"]
         }
-        Binding { target: identity.aircraftType; property: "value"; value: stringIdentityAircraftType.text }
+        Binding { target: identity.aircraftType; property: "value"; value: stringIdentityAircraftType.currentIndex }
 
         // GPS
         CheckBox {
             id: checkboxGpsEnabled
-            text: gps.gpsEnabled.label
-            enabled: gps.gpsEnabled.enabled
-            checked: gps.gpsEnabled.value
+            text: gps.isGpsEnabled.label
+            enabled: gps.isGpsEnabled.enabled
+            checked: gps.isGpsEnabled.value
         }
-        Binding { target: gps.gpsEnabled; property: "value"; value: checkboxGpsEnabled.checked }
+        Binding { target: gps.isGpsEnabled; property: "value"; value: checkboxGpsEnabled.checked }
 
-        // GPS::takeOffDetection
+        // GPS::isTakeoffDetected
         CheckBox {
             id: checkboxTakeoffDetection
-            text: gps.takeOffDetection.label
-            enabled: gps.takeOffDetection.enabled
-            checked: gps.takeOffDetection.value
+            text: gps.isTakeoffDetected.label
+            enabled: gps.isTakeoffDetected.enabled
+            checked: gps.isTakeoffDetected.value
         }
-        Binding { target: gps.takeOffDetection; property: "value"; value: checkboxTakeoffDetection.checked }
+        Binding { target: gps.isTakeoffDetected; property: "value"; value: checkboxTakeoffDetection.checked }
 
-        Button {
-            text: "Log values"
-            onClicked:  {
-                console.log(JSON.stringify(identity));
-            }
+        // GPS::isIgcRecorded
+        CheckBox {
+            id: checkboxIgcRecord
+            text: gps.isIgcRecorded.label
+            enabled: gps.isIgcRecorded.enabled
+            checked: gps.isIgcRecorded.value
         }
+        Binding { target: gps.isIgcRecorded; property: "value"; value: checkboxIgcRecord.checked }
+
+        // GPS::isKmlRecorded
+        CheckBox {
+            id: checkboxKmlRecord
+            text: gps.isKmlRecorded.label
+            enabled: gps.isKmlRecorded.enabled
+            checked: gps.isKmlRecorded.value
+        }
+        Binding { target: gps.isKmlRecorded; property: "value"; value: checkboxKmlRecord.checked }
+
+        // GPS::isKmlGrounded
+        CheckBox {
+            id: checkboxKmlGrounded
+            text: gps.isKmlGrounded.label
+            enabled: gps.isKmlGrounded.enabled
+            checked: gps.isKmlGrounded.value
+        }
+        Binding { target: gps.isKmlGrounded; property: "value"; value: checkboxKmlGrounded.checked }
+
+        // GPS::isGpsPerformant
+        CheckBox {
+            id: checkboxGpsHighPerf
+            text: gps.isGpsPerformant.label
+            enabled: gps.isGpsPerformant.enabled
+            checked: gps.isGpsPerformant.value
+        }
+        Binding { target: gps.isGpsPerformant; property: "value"; value: checkboxGpsHighPerf.checked }
+
+        // GPS::gpsPeriod
+        ComboBox {
+            id: integerGpsPeriod
+            //text: identity.aircraftType.label
+            enabled: gps.gpsPeriod.enabled
+            model: ["1 point : 60 secondes", "1 point : 10 secondes", "1 point : 5 secondes", "1 point : 1 seconde"]
+        }
+        Binding { target: gps.gpsPeriod; property: "value"; value: integerGpsPeriod.currentIndex }
+
+
     }
 }

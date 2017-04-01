@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 
     gpsbip::Context context;
 
-    QTimer t;
-    t.connect(&t, &QTimer::timeout, [&] () { *(context.gps()->gpsEnabled()) = true; });
-    t.start(3000);
+//    QTimer t;
+//    t.connect(&t, &QTimer::timeout, [&] () { *(context.gps()->gpsEnabled()) = true; });
+//    t.start(3000);
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextObject(&context);

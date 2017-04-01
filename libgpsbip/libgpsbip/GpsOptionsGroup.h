@@ -10,8 +10,14 @@ namespace gpsbip {
     {
         Q_OBJECT
 
-        Q_PROPERTY(BoolOption* gpsEnabled READ gpsEnabled CONSTANT)
-        Q_PROPERTY(BoolOption* takeOffDetection READ takeOffDetection CONSTANT)
+        Q_PROPERTY(BoolOption   *          isGpsEnabled READ      isGpsEnabled CONSTANT)
+        Q_PROPERTY(BoolOption   *     isTakeoffDetected READ isTakeoffDetected CONSTANT)
+        Q_PROPERTY(IntegerOption*       takeoffDistance READ   takeoffDistance CONSTANT)
+        Q_PROPERTY(BoolOption   *         isIgcRecorded READ     isIgcRecorded CONSTANT)
+        Q_PROPERTY(BoolOption   *         isKmlRecorded READ     isKmlRecorded CONSTANT)
+        Q_PROPERTY(BoolOption   *         isKmlGrounded READ     isKmlGrounded CONSTANT)
+        Q_PROPERTY(BoolOption   *       isGpsPerformant READ   isGpsPerformant CONSTANT)
+        Q_PROPERTY(IntegerOption*             gpsPeriod READ         gpsPeriod CONSTANT)
 
     public:
         GpsOptionsGroup();
@@ -20,8 +26,14 @@ namespace gpsbip {
 
         GpsOptionsGroup& operator=(const GpsOptionsGroup&) = delete;
 
-        BoolOption* gpsEnabled();
-        BoolOption* takeOffDetection();
+        BoolOption   *       isGpsEnabled();
+        BoolOption   *  isTakeoffDetected();
+        IntegerOption*    takeoffDistance();
+        BoolOption   *      isIgcRecorded();
+        BoolOption   *      isKmlRecorded();
+        BoolOption   *      isKmlGrounded();
+        BoolOption   *    isGpsPerformant();
+        IntegerOption*          gpsPeriod();
 
     private:
         QScopedPointer<GpsOptionsGroupImpl> m_impl;
