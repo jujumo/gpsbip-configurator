@@ -1,4 +1,8 @@
+# Makefiles
+*Makefile*
+
 # Compiled Object files
+*.moc
 *.slo
 *.lo
 *.o
