@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libgpsbip/ConnectivityOptionsGroup.h>
 #include <libgpsbip/IdentityOptionsGroup.h>
 #include <libgpsbip/GpsOptionsGroup.h>
 
@@ -11,8 +12,9 @@ namespace gpsbip {
     {
         Q_OBJECT
 
-        Q_PROPERTY(IdentityOptionsGroup* identity READ identity CONSTANT)
-        Q_PROPERTY(     GpsOptionsGroup*      gps READ      gps CONSTANT)
+        Q_PROPERTY(     IdentityOptionsGroup* identity READ identity CONSTANT)
+        Q_PROPERTY(          GpsOptionsGroup*      gps READ      gps CONSTANT)
+        Q_PROPERTY( ConnectivityOptionsGroup*  connect READ  connect CONSTANT)
 
     public:
         Context();
@@ -22,12 +24,14 @@ namespace gpsbip {
         Context& operator=(Context&&) = delete;
 
         // accessors
-        IdentityOptionsGroup*   identity();
-        GpsOptionsGroup*        gps();
+        IdentityOptionsGroup    *       identity();
+        GpsOptionsGroup         *            gps();
+        ConnectivityOptionsGroup*        connect();
 
     private:
-        IdentityOptionsGroup    m_idProps;
-        GpsOptionsGroup         m_gpsProps;
+        IdentityOptionsGroup       m_idProps;
+        GpsOptionsGroup            m_gpsProps;
+        ConnectivityOptionsGroup   m_connectProps;
     };
 
 }

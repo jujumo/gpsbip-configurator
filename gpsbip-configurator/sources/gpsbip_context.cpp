@@ -16,4 +16,9 @@ GpsOptionsGroup* Context::gps()
     return &m_gpsProps;
 }
 
+ConnectivityOptionsGroup *Context::connect()
+{
+    return &m_connectProps;
+}
+
 }

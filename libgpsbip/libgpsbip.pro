@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += sources/OptionsGroupBase.cpp     \
            sources/OptionBase.cpp           \
+           sources/ConnectivityOptionsGroup.cpp \
            sources/IdentityOptionsGroup.cpp \
            sources/GpsOptionsGroup.cpp      \
 
@@ -33,6 +34,7 @@ SOURCES += sources/OptionsGroupBase.cpp     \
 HEADERS += libgpsbip/OptionBase.h           \
            libgpsbip/OptionTypes.h          \
            libgpsbip/OptionsGroupBase.h     \
+           libgpsbip/ConnectivityOptionsGroup.h \
            libgpsbip/IdentityOptionsGroup.h \
            libgpsbip/GpsOptionsGroup.h      \
 
