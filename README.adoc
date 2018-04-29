@@ -1,0 +1,3 @@
+#GoNe
+
+copy and recompres (eventualy stabilize) gopro files
