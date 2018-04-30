@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 from abc import ABCMeta, abstractmethod
+from ..path_tools import prepare_writing_file
+from subprocess import call
+import logging
 
 
 class Pass(metaclass=ABCMeta):
@@ -12,6 +15,20 @@ class Pass(metaclass=ABCMeta):
     def get_produced_files(self):
         """ returns the list of files produced by this pass """
         return
+
+    def prepare(self):
+        produced_files = self.get_produced_files()
+        for of in produced_files:
+            prepare_writing_file(of)
+
+    def process(self):
+        cmd = self.get_command_line()
+        logging.info('INVOKING ' + ' '.join(cmd))
+        call(cmd)
+
+    def clean(self):
+        """ clean all intermediate files """
+        pass
 
     @abstractmethod
     def get_command_line(self):
@@ -38,10 +55,15 @@ class PassFfmpeg(Pass):
         if self._output_filepath:
             produced_files = [self._output_filepath]
         for pb in self._parameters:
-            pb_out = pb.produced_files()
+            pb_out = pb.get_produced_files()
             if pb_out:
                 produced_files += pb_out
         return produced_files
+
+    def prepare(self):
+        Pass.prepare(self)
+        for p in self._parameters:
+            p.prepare()
 
     def get_command_line(self):
         cmd = [

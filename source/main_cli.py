@@ -6,7 +6,7 @@ import argparse
 import logging
 import os
 from os.path import join, exists, isdir, splitext, abspath, dirname, basename
-from path_tools.path_tools import is_filepath_ends_with, create_filepath
+from task.path_tools import is_filepath_ends_with, create_filepath
 from task.Task import create_compression_task
 
 
@@ -44,10 +44,13 @@ def proceed(input_path_list, output_dirpath):
     task_list = []
     for input_filepath in movie_file_list:
         output_filepath = create_filepath(input_filepath, dest_dirpath=output_dirpath, suffix='_x264', ext='.mp4')
-        task = create_compression_task(input_filepath, output_filepath)
+        temp_dirpath = splitext(output_filepath)[0]
+        task = create_compression_task(input_filepath, output_filepath, temp_dirpath)
         task_list += [task]
 
-    print(task_list)
+    for task in task_list:
+        task.prepare()
+        task.process()
 
 
 def main():

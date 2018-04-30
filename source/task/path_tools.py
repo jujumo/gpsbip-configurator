@@ -2,7 +2,7 @@
 
 import os
 import logging
-from os.path import basename, join, splitext, commonpath, dirname
+from os.path import basename, join, splitext, commonpath, dirname, realpath, exists
 
 
 def is_filepath_ends_with(filename, ext_list):
@@ -73,3 +73,12 @@ def create_filepath(original_filepath,
         dest_dirpath = original_dirpath
     return join(dest_dirpath, relative_path, dest_filename)
 
+
+def secure_path(filepath):
+    return realpath(filepath)
+
+
+def prepare_writing_file(filepath):
+    dirpath = realpath(dirname(filepath))
+    if not exists(dirpath):
+        os.makedirs(dirpath)
